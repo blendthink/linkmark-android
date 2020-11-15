@@ -11,7 +11,7 @@ java -jar openapi-generator-cli.jar generate \
   --api-package dev.honwakalab.linkmark.apiclient.linkmark.api \
   --invoker-package dev.honwakalab.linkmark.apiclient.linkmark.invoker \
   --model-package dev.honwakalab.linkmark.apiclient.linkmark.model \
-  --additional-properties collectionType=list,dateLibrary=java8,enumPropertyNaming=UPPERCASE,serializableModel=true,serializationLibrary=kotlinx_serialization,useCoroutines=true
+  --additional-properties collectionType=list,dateLibrary=java8,enumPropertyNaming=UPPERCASE,serializationLibrary=kotlinx_serialization,useCoroutines=true
 
 rm -rf ./apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure
 rm -rf ./apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark
