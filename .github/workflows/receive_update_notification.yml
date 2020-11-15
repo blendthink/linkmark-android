@@ -1,0 +1,21 @@
+on:
+  repository_dispatch:
+    types:
+      - linkmark-api-updated # repository_dispatch送出時のevent_typeの名前と揃える
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_CHANNEL: general
+            SLACK_COLOR: '#3278BD'
+            SLACK_ICON: https://github.com/blendthink.png?size=48
+            SLACK_USERNAME: linkmark-api-updated
+            SLACK_TITLE: Message
+            SLACK_MESSAGE: 'Create Pull Request!'
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
