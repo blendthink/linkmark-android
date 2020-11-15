@@ -3,6 +3,7 @@
 rm -rf ./apiclient/build/openApiGenerator/linkmark
 
 java -jar openapi-generator-cli.jar generate \
+  --enable-post-process-file \
   --generator-name kotlin \
   --library jvm-retrofit2 \
   --output ./apiclient/build/openApiGenerator/linkmark \
