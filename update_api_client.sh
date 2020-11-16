@@ -17,7 +17,7 @@ java -jar openapi-generator-cli.jar generate \
 
 cd $SCRIPT_DIR/apiclient/build/openApiGenerator/linkmark
 
-ls
+ls -R
 
 cp -r $SCRIPT_DIR/apiclient/build/openApiGenerator/linkmark/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure
 cp -r $SCRIPT_DIR/apiclient/build/openApiGenerator/linkmark/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark
