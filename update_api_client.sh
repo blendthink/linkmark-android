@@ -18,5 +18,11 @@ java -jar openapi-generator-cli.jar generate \
 rm -rf $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure
 rm -rf $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark
 
+mkdir "$SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure"
+mkdir "$SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark"
+
+sudo chmod -R 755 $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure
+sudo chmod -R 755 $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark
+
 cp -r $SCRIPT_DIR/apiclient/build/openApiGenerator/linkmark/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/infrastructure
 cp -r $SCRIPT_DIR/apiclient/build/openApiGenerator/linkmark/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark $SCRIPT_DIR/apiclient/src/main/kotlin/dev/honwakalab/linkmark/apiclient/linkmark
