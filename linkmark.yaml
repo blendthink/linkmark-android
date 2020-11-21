@@ -1,0 +1,205 @@
+openapi: 3.0.0
+info:
+  title: Linkmark
+  description: Linkmark
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+  contact:
+    name: blendthink
+servers:
+  - url: 'https://linkmark.com'
+tags:
+  - name: link
+  - name: tag
+  - name: token
+paths:
+  /tags:
+    get:
+      summary: '全てのタグを取得する'
+      tags:
+        - tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tags'
+      operationId: get-tags
+      description: 'Key, Token の組み合わせで取得可能な全てのタグを取得する'
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: key
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: token
+          required: true
+    post:
+      summary: 'tタグを作成する'
+      tags:
+        - tag
+      operationId: post-tags
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: key
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: token
+          required: true
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/TagName'
+      description: 'Key, Token の組み合わせで紐づけられたタグを作成する'
+  /links:
+    get:
+      summary: '全てのリンクを取得する'
+      tags:
+        - link
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Links'
+      operationId: get-links
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: key
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: token
+          required: true
+      description: 'Key, Token の組み合わせで取得可能な全てのリンクを取得する'
+    post:
+      summary: 'リンクを作成する'
+      tags:
+        - link
+      operationId: post-links
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: key
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: token
+          required: true
+      description: 'Key, Token の組み合わせで紐づけられたリンクを作成する'
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/Url'
+  /tokens:
+    post:
+      summary: 'トークンを作成する'
+      tags:
+        - token
+      operationId: post-tokens
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/Token'
+              examples:
+                token:
+                  value: Atc|MQEWYJxEnP3I1ND03ZzbY_NxQkA7Kn7Aioev_OfMRcyVQ4NxGzJMEaKJ8f0lSOiV-yW270o6fnkI
+      parameters: []
+      description: 'トークンを作成する'
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              $ref: '#/components/schemas/Key'
+            examples:
+              key:
+                value: 93abd516-f6b1-4108-b7af-d416f4b59f5d
+components:
+  schemas:
+    Key:
+      type: string
+      title: Key
+      format: uuid
+      example: 93abd516-f6b1-4108-b7af-d416f4b59f5d
+    Token:
+      type: string
+      title: Token
+      example: Atc|MQEWYJxEnP3I1ND03ZzbY_NxQkA7Kn7Aioev_OfMRcyVQ4NxGzJMEaKJ8f0lSOiV-yW270o6fnkI
+    Url:
+      type: string
+      title: Url
+      format: uri
+      example: 'https://example.com'
+    TagName:
+      type: string
+      title: TagName
+      example: kotlin
+    Tag:
+      title: Tag
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          $ref: '#/components/schemas/TagName'
+      required:
+        - id
+        - name
+    Tags:
+      title: Tags
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'
+    Link:
+      title: Link
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        url:
+          $ref: '#/components/schemas/Url'
+        tags:
+          $ref: '#/components/schemas/Tags'
+      required:
+        - id
+        - url
+        - tags
+    Links:
+      title: Links
+      type: array
+      items:
+        $ref: '#/components/schemas/Link'
+  securitySchemes: {}
