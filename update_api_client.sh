@@ -45,7 +45,7 @@ java -jar openapi-generator-cli.jar generate \
 
 # API Client 生成に成功したら、プロジェクト内の API Client のディレクトリを空っぽにする
 rm -rf $API_CLIENT_DIR
-mkdir $API_CLIENT_DIR
+mkdir -p $API_CLIENT_DIR
 
 # 必要なファイルをコピーする
 cp -r $API_CLIENT_INFRASTRUCTURE_OUTPUT_DIR $API_CLIENT_DIR
