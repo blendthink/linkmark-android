@@ -1,13 +1,13 @@
 package dev.honwakalab.linkmark.apiclient.infrastructure
 
+import java.net.URL
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.SerialDescriptor
-import java.net.URL
 
 @Serializer(forClass = URL::class)
 object UrlAdapter : KSerializer<URL> {
@@ -17,5 +17,8 @@ object UrlAdapter : KSerializer<URL> {
 
     override fun deserialize(decoder: Decoder): URL = URL(decoder.decodeString())
 
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("URL", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
+        "URL",
+        PrimitiveKind.STRING
+    )
 }
