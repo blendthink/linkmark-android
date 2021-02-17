@@ -1,20 +1,18 @@
 package dev.honwakalab.linkmark.apiclient.infrastructure
 
-
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.converter.scalars.ScalarsConverterFactory
-
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dev.honwakalab.linkmark.apiclient.infrastructure.Serializer.jvmJson
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class ApiClient(
     private var baseUrl: String = defaultBasePath,
     private val okHttpClientBuilder: OkHttpClient.Builder? = null,
-    private val okHttpClient : OkHttpClient? = null
+    private val okHttpClient: OkHttpClient? = null
 ) {
     private val apiAuthorizations = mutableMapOf<String, Interceptor>()
     var logger: ((String) -> Unit)? = null
@@ -33,13 +31,17 @@ class ApiClient(
     private val defaultClientBuilder: OkHttpClient.Builder by lazy {
         OkHttpClient()
             .newBuilder()
-            .addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-                override fun log(message: String) {
-                    logger?.invoke(message)
+            .addInterceptor(
+                HttpLoggingInterceptor(
+                    object : HttpLoggingInterceptor.Logger {
+                        override fun log(message: String) {
+                            logger?.invoke(message)
+                        }
+                    }
+                ).apply {
+                    level = HttpLoggingInterceptor.Level.BODY
                 }
-            }).apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            )
     }
 
     init {
@@ -79,7 +81,7 @@ class ApiClient(
 
     private inline fun <T, reified U> Iterable<T>.runOnFirst(callback: U.() -> Unit) {
         for (element in this) {
-            if (element is U)  {
+            if (element is U) {
                 callback.invoke(element)
                 break
             }
@@ -89,7 +91,10 @@ class ApiClient(
     companion object {
         @JvmStatic
         val defaultBasePath: String by lazy {
-            System.getProperties().getProperty("dev.honwakalab.linkmark.apiclient.baseUrl", "https://linkmark.com")
+            System.getProperties().getProperty(
+                "dev.honwakalab.linkmark.apiclient.baseUrl",
+                "https://linkmark.com"
+            )
         }
     }
 }

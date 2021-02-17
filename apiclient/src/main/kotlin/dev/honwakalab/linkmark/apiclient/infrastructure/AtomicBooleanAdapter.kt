@@ -1,13 +1,13 @@
 package dev.honwakalab.linkmark.apiclient.infrastructure
 
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.SerialDescriptor
-import java.util.concurrent.atomic.AtomicBoolean
 
 @Serializer(forClass = AtomicBoolean::class)
 object AtomicBooleanAdapter : KSerializer<AtomicBoolean> {
@@ -15,7 +15,12 @@ object AtomicBooleanAdapter : KSerializer<AtomicBoolean> {
         encoder.encodeBoolean(value.get())
     }
 
-    override fun deserialize(decoder: Decoder): AtomicBoolean = AtomicBoolean(decoder.decodeBoolean())
+    override fun deserialize(decoder: Decoder): AtomicBoolean = AtomicBoolean(
+        decoder.decodeBoolean()
+    )
 
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("AtomicBoolean", PrimitiveKind.BOOLEAN)
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor(
+        "AtomicBoolean",
+        PrimitiveKind.BOOLEAN
+    )
 }
